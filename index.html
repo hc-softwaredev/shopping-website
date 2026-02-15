@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ShopNow - General Store</title>
+
+  <!-- Google Fonts: We use Poppins - clean and modern -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+
+  <!-- Our CSS Files -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/home.css" />
+</head>
+<body>
+
+  <!-- =====================
+       NAVBAR
+       - Logo on left
+       - Links in middle
+       - Login + Cart on right
+  ===================== -->
+  <nav class="navbar">
+
+    <div class="nav-logo">Shop<span>Now</span></div>
+
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="#categories">Categories</a></li>
+      <li><a href="#products">Products</a></li>
+      <li><a href="cart.html">Cart</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <a href="login.html" class="btn-login">Login</a>
+      <a href="cart.html" class="btn-cart">
+        🛒 Cart
+        <!-- This number updates automatically via JS -->
+        <span id="cartCount">0</span>
+      </a>
+    </div>
+
+  </nav>
+
+
+  <!-- =====================
+       HERO SECTION
+       Big welcome banner
+  ===================== -->
+  <section class="hero">
+
+    <div class="hero-text">
+      <h1>Shop Everything <span>You Love</span></h1>
+      <p>Thousands of products. Great quality. Unbeatable prices.</p>
+      <div class="hero-buttons">
+        <a href="#products" class="btn-primary">Shop Now</a>
+        <a href="#categories" class="btn-secondary">Browse Categories</a>
+      </div>
+    </div>
+
+    <div class="hero-image">🛍️</div>
+
+  </section>
+
+
+  <!-- =====================
+       CATEGORIES SECTION
+  ===================== -->
+  <section class="section" id="categories">
+
+    <div class="section-title">
+      <h2>Shop by Category</h2>
+      <p>Find what you are looking for</p>
+    </div>
+
+    <div class="categories-grid">
+      <div class="category-card"><span>📱</span><p>Electronics</p></div>
+      <div class="category-card"><span>👗</span><p>Fashion</p></div>
+      <div class="category-card"><span>🏠</span><p>Home & Living</p></div>
+      <div class="category-card"><span>⚽</span><p>Sports</p></div>
+      <div class="category-card"><span>💄</span><p>Beauty</p></div>
+      <div class="category-card"><span>📚</span><p>Books</p></div>
+    </div>
+
+  </section>
+
+
+  <!-- =====================
+       PRODUCTS SECTION
+       Cards are added here by JavaScript
+  ===================== -->
+  <section class="section" id="products">
+
+    <div class="section-title">
+      <h2>Featured Products</h2>
+      <p>Our best picks this week</p>
+    </div>
+
+    <!-- JS will fill this div with product cards -->
+    <div class="products-grid" id="productsGrid"></div>
+
+  </section>
+
+
+  <!-- =====================
+       FOOTER
+  ===================== -->
+  <footer class="footer">
+    <div class="nav-logo">Shop<span>Now</span></div>
+    <p>Your one-stop shop for everything you need.</p>
+    <div class="footer-links">
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+      <a href="#">Returns</a>
+      <a href="#">FAQ</a>
+    </div>
+    <p class="footer-copy">© 2025 ShopNow. All rights reserved.</p>
+  </footer>
+
+
+  <!-- Toast: small popup that says "Added to cart!" -->
+  <div id="toast" class="toast">✅ Item added to cart!</div>
+
+
+  <!-- JS Files — always add at BOTTOM of body
+       Reason: HTML should load before JS runs -->
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/home.js"></script>
+
+</body>
+</html>
