@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login / Register - ShopNow</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+
+  <!-- Common styles (navbar, footer, buttons) -->
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- Login page specific styles -->
+  <link rel="stylesheet" href="css/login.css" />
+</head>
+<body>
+
+  <!-- =====================
+       NAVBAR
+  ===================== -->
+  <nav class="navbar">
+    <div class="nav-logo">Shop<span>Now</span></div>
+
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#categories">Categories</a></li>
+      <li><a href="index.html#products">Products</a></li>
+      <li><a href="cart.html">Cart</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <a href="login.html" class="btn-login">Login</a>
+      <a href="cart.html" class="btn-cart">
+        🛒 Cart
+        <span id="cartCount">0</span>
+      </a>
+    </div>
+  </nav>
+
+
+  <!-- =====================
+       LOGIN / REGISTER CARD
+  ===================== -->
+  <div class="auth-wrapper">
+    <div class="auth-card">
+
+      <!-- Logo at top -->
+      <div class="auth-logo">Shop<span>Now</span></div>
+      <p class="auth-tagline">Your favourite general store</p>
+
+
+      <!-- ---- TABS: Login | Register ---- -->
+      <!-- Clicking a tab shows that form, hides the other -->
+      <div class="auth-tabs">
+        <button class="tab-btn active" id="loginTab" onclick="showTab('login')">
+          Login
+        </button>
+        <button class="tab-btn" id="registerTab" onclick="showTab('register')">
+          Register
+        </button>
+      </div>
+
+
+      <!-- =====================
+           LOGIN FORM
+      ===================== -->
+      <form id="loginForm" class="auth-form" onsubmit="handleLogin(event)">
+
+        <div class="form-group">
+          <label for="loginEmail">Email Address</label>
+          <input
+            type="email"
+            id="loginEmail"
+            placeholder="you@example.com"
+            required
+          />
+          <!-- Error message shown by JS if invalid -->
+          <span class="field-error" id="loginEmailError"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="loginPassword">Password</label>
+          <!-- Wrapper so we can put the show/hide button inside -->
+          <div class="input-with-icon">
+            <input
+              type="password"
+              id="loginPassword"
+              placeholder="Enter your password"
+              required
+            />
+            <!-- Toggle password visibility -->
+            <button type="button" class="toggle-pw" onclick="togglePassword('loginPassword', this)">
+              👁
+            </button>
+          </div>
+          <span class="field-error" id="loginPasswordError"></span>
+        </div>
+
+        <!-- Forgot password link -->
+        <div class="form-extras">
+          <a href="#" class="forgot-link">Forgot password?</a>
+        </div>
+
+        <!-- Submit button -->
+        <button type="submit" class="btn-submit">
+          Login to Account
+        </button>
+
+        <!-- General error/success message -->
+        <div class="form-message" id="loginMessage"></div>
+
+      </form>
+
+
+      <!-- =====================
+           REGISTER FORM
+           (hidden by default)
+      ===================== -->
+      <form id="registerForm" class="auth-form hidden" onsubmit="handleRegister(event)">
+
+        <div class="form-group">
+          <label for="regName">Full Name</label>
+          <input
+            type="text"
+            id="regName"
+            placeholder="Rahul Sharma"
+            required
+          />
+          <span class="field-error" id="regNameError"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="regEmail">Email Address</label>
+          <input
+            type="email"
+            id="regEmail"
+            placeholder="you@example.com"
+            required
+          />
+          <span class="field-error" id="regEmailError"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="regPhone">Phone Number</label>
+          <input
+            type="tel"
+            id="regPhone"
+            placeholder="10-digit mobile number"
+            maxlength="10"
+          />
+          <span class="field-error" id="regPhoneError"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="regPassword">Password</label>
+          <div class="input-with-icon">
+            <input
+              type="password"
+              id="regPassword"
+              placeholder="Min. 6 characters"
+              required
+            />
+            <button type="button" class="toggle-pw" onclick="togglePassword('regPassword', this)">
+              👁
+            </button>
+          </div>
+          <span class="field-error" id="regPasswordError"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="regConfirmPassword">Confirm Password</label>
+          <div class="input-with-icon">
+            <input
+              type="password"
+              id="regConfirmPassword"
+              placeholder="Re-enter your password"
+              required
+            />
+            <button type="button" class="toggle-pw" onclick="togglePassword('regConfirmPassword', this)">
+              👁
+            </button>
+          </div>
+          <span class="field-error" id="regConfirmError"></span>
+        </div>
+
+        <!-- Terms checkbox -->
+        <div class="form-group checkbox-group">
+          <input type="checkbox" id="agreeTerms" />
+          <label for="agreeTerms">
+            I agree to the <a href="#">Terms & Conditions</a>
+          </label>
+        </div>
+
+        <button type="submit" class="btn-submit">
+          Create Account
+        </button>
+
+        <div class="form-message" id="registerMessage"></div>
+
+      </form>
+
+
+      <!-- Switch between login/register -->
+      <p class="switch-text" id="switchText">
+        Don't have an account?
+        <a href="#" onclick="showTab('register')">Register here</a>
+      </p>
+
+    </div>
+  </div>
+
+
+  <!-- Toast popup -->
+  <div id="toast" class="toast"></div>
+
+
+  <!-- JS Files -->
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/login.js"></script>
+
+</body>
+</html>
