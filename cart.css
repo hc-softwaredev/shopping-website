@@ -1,0 +1,401 @@
+/* =========================================
+   cart.css — CART PAGE STYLES ONLY
+========================================= */
+
+
+/* -----------------------------------------
+   1. PAGE HEADER
+   The title area below navbar
+----------------------------------------- */
+.page-header {
+  background: linear-gradient(135deg, #eff6ff, #f5f5f5);
+  padding: 40px 48px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.page-header h1 {
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: #111;
+}
+
+.page-header p {
+  color: #666;
+  font-size: 0.95rem;
+  margin-top: 4px;
+}
+
+
+/* -----------------------------------------
+   2. CART CONTAINER
+   Two-column layout:
+   Left (items) takes 65%, Right (summary) takes 35%
+----------------------------------------- */
+.cart-container {
+  display: flex;
+  gap: 28px;
+  padding: 40px 48px;
+  align-items: flex-start;  /* top-aligned, not stretched */
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Left side takes more space */
+.cart-left {
+  flex: 1;       /* grows to fill available space */
+  min-width: 0;  /* prevents overflow issues */
+}
+
+/* Right side is fixed width */
+.cart-right {
+  width: 340px;
+  flex-shrink: 0;  /* doesn't shrink */
+}
+
+
+/* -----------------------------------------
+   3. EMPTY CART MESSAGE
+----------------------------------------- */
+.empty-cart {
+  text-align: center;
+  padding: 80px 20px;
+  background: white;
+  border-radius: 14px;
+  border: 1px solid #e0e0e0;
+
+  /* Hidden by default — JS shows it if cart is empty */
+  display: none;
+}
+
+.empty-icon {
+  font-size: 5rem;
+  margin-bottom: 16px;
+}
+
+.empty-cart h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 8px;
+}
+
+.empty-cart p {
+  color: #666;
+  margin-bottom: 24px;
+}
+
+
+/* -----------------------------------------
+   4. CART ITEM CARD
+   Each product row in the cart
+----------------------------------------- */
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 14px;
+  padding: 16px 20px;
+  margin-bottom: 14px;
+  transition: box-shadow 0.2s;
+}
+
+.cart-item:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+}
+
+/* Emoji image box */
+.cart-item-img {
+  width: 80px;
+  height: 80px;
+  background: #f5f5f5;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  flex-shrink: 0;
+}
+
+/* Name and category text */
+.cart-item-info {
+  flex: 1;  /* takes up remaining space */
+}
+
+.cart-item-category {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.cart-item-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 4px;
+}
+
+.cart-item-price {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* Right side: quantity controls + total + remove */
+.cart-item-right {
+  display: flex;
+  flex-direction: column;  /* stack vertically */
+  align-items: flex-end;
+  gap: 10px;
+}
+
+/* Quantity control: [ - ] [ 2 ] [ + ] */
+.quantity-control {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.qty-btn {
+  width: 34px;
+  height: 34px;
+  background: #f5f5f5;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: #333;
+  transition: background 0.15s;
+}
+
+.qty-btn:hover {
+  background: var(--primary);
+  color: white;
+}
+
+.qty-value {
+  width: 36px;
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #222;
+  background: white;
+  padding: 6px 0;
+}
+
+/* Item total price (price × quantity) */
+.cart-item-total {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #111;
+}
+
+/* Remove button */
+.btn-remove {
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 0.82rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: color 0.2s, background 0.2s;
+}
+
+.btn-remove:hover {
+  color: var(--danger);
+  background: #fff0f0;
+}
+
+
+/* -----------------------------------------
+   5. CLEAR CART BUTTON
+----------------------------------------- */
+.btn-clear-cart {
+  background: none;
+  border: 1.5px solid #e0e0e0;
+  color: #999;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.btn-clear-cart:hover {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+
+/* -----------------------------------------
+   6. ORDER SUMMARY BOX (right side)
+----------------------------------------- */
+.order-summary {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 14px;
+  padding: 24px;
+  position: sticky;   /* stays in view when you scroll */
+  top: 90px;
+}
+
+.order-summary h2 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #111;
+}
+
+/* Each row like "Subtotal ... ₹1,200" */
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.92rem;
+  color: #555;
+  margin-bottom: 12px;
+}
+
+.discount-value {
+  color: #16a34a;  /* green for discounts */
+  font-weight: 600;
+}
+
+/* Horizontal line */
+.summary-divider {
+  border-top: 1.5px dashed #e0e0e0;
+  margin: 16px 0;
+}
+
+/* Total row is bigger and bolder */
+.total-row {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 20px;
+}
+
+
+/* -----------------------------------------
+   7. COUPON BOX
+----------------------------------------- */
+.coupon-box {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.coupon-box input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.88rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.coupon-box input:focus {
+  border-color: var(--primary);
+}
+
+.coupon-box button {
+  padding: 10px 16px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.coupon-box button:hover {
+  background: var(--primary-dark);
+}
+
+/* Coupon success/error message */
+.coupon-msg {
+  font-size: 0.82rem;
+  min-height: 18px;
+  margin-bottom: 16px;
+}
+
+.coupon-msg.success { color: #16a34a; }  /* green */
+.coupon-msg.error   { color: var(--danger); }  /* red */
+
+
+/* -----------------------------------------
+   8. CHECKOUT BUTTON
+----------------------------------------- */
+.btn-checkout {
+  width: 100%;
+  padding: 14px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  margin-bottom: 12px;
+}
+
+.btn-checkout:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+/* Continue shopping link */
+.continue-shopping {
+  display: block;
+  text-align: center;
+  font-size: 0.88rem;
+  color: #666;
+  transition: color 0.2s;
+}
+
+.continue-shopping:hover {
+  color: var(--primary);
+}
+
+
+/* -----------------------------------------
+   9. RESPONSIVE
+----------------------------------------- */
+@media (max-width: 900px) {
+  /* Stack left and right vertically on tablet/mobile */
+  .cart-container {
+    flex-direction: column;
+    padding: 24px 20px;
+  }
+  .cart-right {
+    width: 100%;
+  }
+  .page-header {
+    padding: 28px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cart-item {
+    flex-wrap: wrap;
+  }
+  .cart-item-right {
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
