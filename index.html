@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ShopNow — Premium General Store</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/home.css"/>
+</head>
+<body>
+
+  <!-- =====================
+       NAVBAR
+       Now has a search bar in the middle
+  ===================== -->
+  <nav class="navbar">
+
+    <div class="nav-logo">Shop<span>Now</span></div>
+
+    <!-- SEARCH BAR — new addition! -->
+    <div class="search-box">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search for products..."
+        oninput="searchProducts()"
+      />
+      <button onclick="searchProducts()">🔍</button>
+
+      <!-- Search results dropdown -->
+      <!-- This shows live suggestions as user types -->
+      <div class="search-dropdown" id="searchDropdown"></div>
+    </div>
+
+    <div class="nav-right">
+      <a href="login.html" class="btn-login">Login</a>
+      <a href="cart.html" class="btn-cart">
+        🛒 Cart <span id="cartCount">0</span>
+      </a>
+    </div>
+
+  </nav>
+
+
+  <!-- =====================
+       HERO SECTION
+  ===================== -->
+  <section class="hero">
+    <div class="hero-text">
+      <div class="hero-badge">🔥 New Arrivals Every Week</div>
+      <h1>Shop <span class="highlight">Everything</span><br/>You Love</h1>
+      <p>Discover thousands of products across all categories. Premium quality, unbeatable prices — all in one place.</p>
+      <div class="hero-buttons">
+        <a href="#products" class="btn-primary">Shop Now →</a>
+        <a href="#categories" class="btn-secondary">Browse Categories</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat-item">
+          <div class="hero-stat-num">5K<span>+</span></div>
+          <div class="hero-stat-label">Products</div>
+        </div>
+        <div class="hero-stat-item">
+          <div class="hero-stat-num">120K<span>+</span></div>
+          <div class="hero-stat-label">Customers</div>
+        </div>
+        <div class="hero-stat-item">
+          <div class="hero-stat-num">4.8<span>★</span></div>
+          <div class="hero-stat-label">Rating</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card">
+        <div class="hero-card-icon">🛍️</div>
+        <div class="hero-card-label">Featured Deals</div>
+        <div class="hero-card-price">Up to 50% OFF</div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-card-icon">📱</div>
+        <div class="hero-card-label">Electronics</div>
+        <div class="hero-card-price">From ₹299</div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-card-icon">👗</div>
+        <div class="hero-card-label">Fashion</div>
+        <div class="hero-card-price">From ₹199</div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =====================
+       STATS BAR
+  ===================== -->
+  <div class="stats-bar">
+    <div class="stat-item"><div class="stat-num">5,000+</div><div class="stat-label">Products Available</div></div>
+    <div class="stat-item"><div class="stat-num">120K+</div><div class="stat-label">Happy Customers</div></div>
+    <div class="stat-item"><div class="stat-num">50+</div><div class="stat-label">Categories</div></div>
+    <div class="stat-item"><div class="stat-num">4.8★</div><div class="stat-label">Average Rating</div></div>
+    <div class="stat-item"><div class="stat-num">Free</div><div class="stat-label">Delivery above ₹500</div></div>
+  </div>
+
+
+  <!-- =====================
+       CATEGORIES
+  ===================== -->
+  <section class="section" id="categories">
+    <div class="section-title">
+      <div class="tag">Browse by category</div>
+      <h2>What are you shopping for?</h2>
+      <p>Click a category to filter products</p>
+    </div>
+    <div class="categories-grid">
+      <div class="category-card" data-category="All" onclick="filterByCategory('All')" style="border-color:#2874f0; background:rgba(40,116,240,0.1);">
+        <span>🛍️</span><p>All</p>
+      </div>
+      <div class="category-card" data-category="Electronics" onclick="filterByCategory('Electronics')">
+        <span>📱</span><p>Electronics</p>
+      </div>
+      <div class="category-card" data-category="Fashion" onclick="filterByCategory('Fashion')">
+        <span>👗</span><p>Fashion</p>
+      </div>
+      <div class="category-card" data-category="Home" onclick="filterByCategory('Home')">
+        <span>🏠</span><p>Home</p>
+      </div>
+      <div class="category-card" data-category="Sports" onclick="filterByCategory('Sports')">
+        <span>⚽</span><p>Sports</p>
+      </div>
+      <div class="category-card" data-category="Beauty" onclick="filterByCategory('Beauty')">
+        <span>💄</span><p>Beauty</p>
+      </div>
+      <div class="category-card" data-category="Books" onclick="filterByCategory('Books')">
+        <span>📚</span><p>Books</p>
+      </div>
+      <div class="category-card" data-category="Toys" onclick="filterByCategory('Toys')">
+        <span>🧸</span><p>Toys</p>
+      </div>
+      <div class="category-card" data-category="Groceries" onclick="filterByCategory('Groceries')">
+        <span>🛒</span><p>Grocery</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+
+  <!-- =====================
+       PRODUCTS SECTION
+       JS fills this grid
+  ===================== -->
+  <section class="section" id="products">
+    <div class="section-title">
+      <div class="tag" id="productsTag">Handpicked for you</div>
+      <!-- Title updates when searching -->
+      <h2 id="productsTitle">Featured Products</h2>
+      <p id="productsSubtitle">Our most popular picks this week</p>
+    </div>
+    <div class="products-grid" id="productsGrid"></div>
+  </section>
+
+
+  <!-- =====================
+       PROMO BANNER
+  ===================== -->
+  <div class="promo-banner">
+    <div class="promo-text">
+      <h2>Get <strong>20% OFF</strong> your first order!</h2>
+      <p>Use the code at checkout. Limited time offer!</p>
+    </div>
+    <div class="promo-code-box">
+      <div class="promo-code">WELCOME20</div>
+      <div class="promo-sub">Apply at checkout</div>
+    </div>
+  </div>
+
+
+  <!-- =====================
+       FOOTER
+  ===================== -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo">Shop<span>Now</span></div>
+        <p>Your one-stop destination for everything you need. Quality products, fast shipping, easy returns.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <a href="#">New Arrivals</a>
+        <a href="#">Best Sellers</a>
+        <a href="#">Deals</a>
+        <a href="#">All Categories</a>
+      </div>
+      <div class="footer-col">
+        <h4>Help</h4>
+        <a href="#">My Account</a>
+        <a href="track-orders.html">Track Order</a>
+        <a href="#">Returns</a>
+        <a href="#">FAQ</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#">About Us</a>
+        <a href="#">Blog</a>
+        <a href="#">Careers</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 ShopNow. All rights reserved.</span>
+      <span>Built with ❤️ for placements</span>
+    </div>
+  </footer>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/home.js"></script>
+
+</body>
+</html>
