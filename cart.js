@@ -1,124 +1,154 @@
-// =========================================
-// cart.js — CART LOGIC
+// ============================================
+// cart.js
 //
-// This file handles everything related to
-// the shopping cart. It is loaded on all
-// pages so the cart count always shows.
-// =========================================
+// This file handles the shopping cart.
+// It is loaded on EVERY page (not just cart page)
+// so the cart count in navbar always works.
+//
+// KEY CONCEPTS USED HERE:
+// 1. localStorage  - saves data in browser
+// 2. JSON          - a way to save objects as text
+// 3. Array methods - find(), reduce()
+// ============================================
 
 
-// -----------------------------------------
-// STEP 1: Load cart from localStorage
+// ─────────────────────────────────────────
+// STEP 1: LOAD CART FROM LOCALSTORAGE
 //
 // localStorage is like a notepad in the browser.
-// It saves data even when you refresh the page.
+// It saves data even after you close the page.
 //
-// JSON.parse() converts saved text back to an array.
-// If nothing is saved yet, we start with empty array [].
-// -----------------------------------------
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
+// localStorage can only save TEXT, not arrays.
+// So we use:
+//   JSON.stringify()  → converts array to text (to SAVE)
+//   JSON.parse()      → converts text back to array (to LOAD)
+//
+// The || [] means: if nothing is saved yet, use empty array
+// ─────────────────────────────────────────
+var cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 
-// -----------------------------------------
-// STEP 2: Save cart to localStorage
+// ─────────────────────────────────────────
+// FUNCTION: saveCart
 //
-// We call this function every time cart changes.
-// JSON.stringify() converts array to text for storage.
-// -----------------------------------------
+// Saves the cart array to localStorage.
+// We call this every time cart changes.
+// ─────────────────────────────────────────
 function saveCart() {
+  // Convert array to text, then save it
   localStorage.setItem('cart', JSON.stringify(cart));
 }
 
 
-// -----------------------------------------
-// STEP 3: Update cart count in navbar
+// ─────────────────────────────────────────
+// FUNCTION: updateCartCount
 //
-// Adds up quantity of all items.
-// Shows total on the cart button.
-// -----------------------------------------
+// Counts total items in cart and shows it
+// on the cart button in the navbar.
+//
+// WHAT IS reduce()?
+// reduce() loops through array and builds ONE value.
+// Here we add up all quantities to get total.
+// It starts at 0, then adds each item's quantity.
+// ─────────────────────────────────────────
 function updateCartCount() {
-  // .reduce() loops and adds up — starts at 0
-  const total = cart.reduce(function(sum, item) {
-    return sum + item.quantity;
-  }, 0);
 
-  // Update the number in the navbar
-  const countEl = document.getElementById('cartCount');
-  if (countEl) {
-    countEl.textContent = total;
+  // Add up all quantities
+  var total = cart.reduce(function(sum, item) {
+    return sum + item.quantity;
+  }, 0); // 0 is the starting value
+
+  // Find the count element in navbar and update it
+  var countElement = document.getElementById('cartCount');
+
+  if (countElement) {
+    countElement.textContent = total;
   }
 }
 
 
-// -----------------------------------------
-// STEP 4: Add item to cart
+// ─────────────────────────────────────────
+// FUNCTION: addToCart
 //
 // Called when user clicks the "+" button.
-// -----------------------------------------
-function addToCart(productId) {
+//
+// Parameters (values passed into the function):
+//   id    - product id number  e.g. 1
+//   name  - product name       e.g. "Headphones"
+//   price - product price      e.g. 1299
+//   emoji - product emoji      e.g. "🎧"
+// ─────────────────────────────────────────
+function addToCart(id, name, price, emoji) {
 
-  // Find the product from products.js array
-  const product = products.find(function(p) {
-    return p.id === productId;
-  });
-
-  // Safety check — if product not found, stop
-  if (!product) return;
+  // Convert to correct data types just to be safe
+  id    = parseInt(id);     // make sure it's a number
+  price = parseFloat(price); // make sure it's a decimal number
 
   // Check if this product is already in the cart
-  const existing = cart.find(function(item) {
-    return item.id === productId;
+  // find() searches the array and returns the matching item
+  // If not found, it returns undefined (which is falsy)
+  var existingItem = cart.find(function(item) {
+    return item.id === id;
   });
 
-  if (existing) {
-    // Already in cart → just increase quantity by 1
-    existing.quantity = existing.quantity + 1;
+  if (existingItem) {
+    // Product already in cart → just add 1 to quantity
+    existingItem.quantity = existingItem.quantity + 1;
   } else {
-    // Not in cart → add it as a new item
+    // Product not in cart → add it as a new item
     cart.push({
-      id:       product.id,
-      name:     product.name,
-      price:    product.price,
-      emoji:    product.emoji,
+      id:       id,
+      name:     name,
+      price:    price,
+      emoji:    emoji,
       quantity: 1
     });
   }
 
-  // Save the updated cart
+  // Save updated cart to localStorage
   saveCart();
 
-  // Update the count shown in navbar
+  // Update the number on cart button in navbar
   updateCartCount();
 
-  // Show "added to cart" message
-  showToast(product.emoji + ' "' + product.name + '" added to cart!');
+  // Show popup message
+  showToast(emoji + ' "' + name + '" added to cart!');
 }
 
 
-// -----------------------------------------
-// STEP 5: Show Toast Notification
+// ─────────────────────────────────────────
+// FUNCTION: showToast
 //
-// A small popup message at the bottom right.
-// Disappears automatically after 2.5 seconds.
-// -----------------------------------------
+// Shows a small popup message at bottom-right.
+// Disappears after 2.5 seconds.
+//
+// HOW IT WORKS:
+// 1. Set the message text
+// 2. Add class "show" → CSS makes it visible
+// 3. After 2500ms (2.5 sec) remove "show" → CSS hides it
+// ─────────────────────────────────────────
 function showToast(message) {
-  const toast = document.getElementById('toast');
+
+  var toast = document.getElementById('toast');
+
+  // Safety check - if toast element not found, stop
   if (!toast) return;
 
+  // Set the message
   toast.textContent = message;
 
-  // Add class "show" → CSS makes it visible
+  // Add "show" class to make it visible
   toast.classList.add('show');
 
-  // After 2.5 seconds, remove "show" → CSS hides it
+  // After 2.5 seconds, remove "show" to hide it
   setTimeout(function() {
     toast.classList.remove('show');
   }, 2500);
 }
 
 
-// -----------------------------------------
-// Run updateCartCount when any page loads
-// So navbar always shows correct number
-// -----------------------------------------
+// ─────────────────────────────────────────
+// Run when ANY page loads
+// This keeps the cart count correct always
+// ─────────────────────────────────────────
 updateCartCount();
