@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Panel — ShopNow</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/admin.css"/>
+</head>
+<body>
+
+  <!-- =====================
+       ADMIN NAVBAR
+       Different from main site navbar
+  ===================== -->
+  <nav class="navbar">
+    <div class="nav-logo">Shop<span>Now</span> <span class="admin-badge">Admin</span></div>
+    <div class="nav-right">
+      <a href="index.html" class="btn-login">← View Site</a>
+      <button class="btn-cart" onclick="adminLogout()">Logout</button>
+    </div>
+  </nav>
+
+
+  <!-- =====================
+       ADMIN LOGIN SCREEN
+       Shows first — hides after correct password
+  ===================== -->
+  <div id="adminLogin" class="admin-login-wrapper">
+    <div class="admin-login-card">
+
+      <div class="nav-logo" style="text-align:center; margin-bottom:8px;">
+        Shop<span>Now</span>
+      </div>
+      <p style="text-align:center; color:#888; margin-bottom:28px; font-size:0.9rem;">
+        Admin Access Only
+      </p>
+
+      <div class="form-group-admin">
+        <label>Admin Password</label>
+        <input
+          type="password"
+          id="adminPasswordInput"
+          placeholder="Enter admin password"
+          onkeypress="handlePasswordKeypress(event)"
+        />
+      </div>
+
+      <button class="btn-admin-submit" onclick="checkAdminPassword()">
+        Login to Admin Panel
+      </button>
+
+      <p id="adminLoginError" class="admin-login-error"></p>
+
+    </div>
+  </div>
+
+
+  <!-- =====================
+       MAIN ADMIN PANEL
+       Hidden until password is correct
+  ===================== -->
+  <div id="adminPanel" class="admin-wrapper" style="display:none;">
+
+    <!-- Stats cards at top -->
+    <div class="admin-stats">
+      <div class="admin-stat-card">
+        <div class="admin-stat-num" id="totalProductsCount">0</div>
+        <div class="admin-stat-label">Total Products</div>
+      </div>
+      <div class="admin-stat-card">
+        <div class="admin-stat-num" id="totalCategoriesCount">0</div>
+        <div class="admin-stat-label">Categories</div>
+      </div>
+      <div class="admin-stat-card">
+        <div class="admin-stat-num" id="saleProductsCount">0</div>
+        <div class="admin-stat-label">On Sale</div>
+      </div>
+    </div>
+
+
+    <!-- ── ADD NEW PRODUCT FORM ── -->
+    <div class="admin-section">
+      <div class="admin-section-header">
+        <h2>➕ Add New Product</h2>
+      </div>
+
+      <div class="admin-form" id="productForm">
+
+        <div class="form-row">
+          <!-- Product Name -->
+          <div class="form-group-admin">
+            <label>Product Name *</label>
+            <input type="text" id="prodName" placeholder="e.g. Wireless Headphones"/>
+          </div>
+
+          <!-- Category -->
+          <div class="form-group-admin">
+            <label>Category *</label>
+            <select id="prodCategory">
+              <option value="">-- Select Category --</option>
+              <option value="Electronics">Electronics</option>
+              <option value="Fashion">Fashion</option>
+              <option value="Home">Home</option>
+              <option value="Sports">Sports</option>
+              <option value="Beauty">Beauty</option>
+              <option value="Books">Books</option>
+              <option value="Toys">Toys</option>
+              <option value="Groceries">Groceries</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <!-- Price -->
+          <div class="form-group-admin">
+            <label>Price (₹) *</label>
+            <input type="number" id="prodPrice" placeholder="e.g. 1299"/>
+          </div>
+
+          <!-- Old Price -->
+          <div class="form-group-admin">
+            <label>Old Price (₹) <span class="optional">optional</span></label>
+            <input type="number" id="prodOldPrice" placeholder="e.g. 1799 (leave empty if no discount)"/>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <!-- Emoji -->
+          <div class="form-group-admin">
+            <label>Emoji *</label>
+            <input type="text" id="prodEmoji" placeholder="e.g. 🎧" maxlength="5"/>
+          </div>
+
+          <!-- Badge -->
+          <div class="form-group-admin">
+            <label>Badge <span class="optional">optional</span></label>
+            <select id="prodBadge">
+              <option value="">-- No Badge --</option>
+              <option value="Sale">Sale (Red)</option>
+              <option value="New">New (Green)</option>
+              <option value="Hot">Hot (Yellow)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <!-- Rating -->
+          <div class="form-group-admin">
+            <label>Rating (1.0 - 5.0) *</label>
+            <input type="number" id="prodRating" placeholder="e.g. 4.5" min="1" max="5" step="0.1"/>
+          </div>
+
+          <!-- Reviews -->
+          <div class="form-group-admin">
+            <label>Number of Reviews *</label>
+            <input type="number" id="prodReviews" placeholder="e.g. 150"/>
+          </div>
+        </div>
+
+        <!-- Hidden field: stores product ID when editing -->
+        <!-- When this is empty = adding new product -->
+        <!-- When this has a value = editing existing product -->
+        <input type="hidden" id="editProductId" value=""/>
+
+        <div class="form-buttons">
+          <button class="btn-save" onclick="saveProduct()">
+            💾 Save Product
+          </button>
+          <button class="btn-cancel-form" onclick="resetForm()" id="cancelEditBtn" style="display:none;">
+            ✕ Cancel Edit
+          </button>
+        </div>
+
+        <!-- Success/error message for form -->
+        <div id="formMessage" class="form-message-admin"></div>
+
+      </div>
+    </div>
+
+
+    <!-- ── PRODUCTS TABLE ── -->
+    <div class="admin-section">
+      <div class="admin-section-header">
+        <h2>📋 All Products</h2>
+        <!-- Search inside admin table -->
+        <input
+          type="text"
+          id="adminSearch"
+          placeholder="Search products..."
+          oninput="filterAdminTable()"
+          class="admin-search"
+        />
+      </div>
+
+      <!-- Table showing all products -->
+      <div class="table-wrapper">
+        <table class="products-table" id="productsTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Emoji</th>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Old Price</th>
+              <th>Rating</th>
+              <th>Badge</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="productsTableBody">
+            <!-- JS fills this -->
+            <tr>
+              <td colspan="9" style="text-align:center; padding:40px; color:#888;">
+                ⏳ Loading products...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- end adminPanel -->
+
+
+  <!-- Toast notification -->
+  <div id="toast" class="toast"></div>
+
+
+  <!-- JS Files -->
+  <script src="js/cart.js"></script>
+  <script src="js/admin.js"></script>
+
+</body>
+</html>
