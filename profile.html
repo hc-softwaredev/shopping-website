@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Profile — ShopNow</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/profile.css"/>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-logo">Shop<span>Now</span></div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#categories">Categories</a></li>
+      <li><a href="index.html#products">Products</a></li>
+      <li><a href="track-orders.html">Track Orders</a></li>
+      <li><a href="cart.html">Cart</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="login.html" class="btn-login">Login</a>
+      <a href="cart.html" class="btn-cart">
+        🛒 Cart <span id="cartCount">0</span>
+      </a>
+    </div>
+  </nav>
+
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <h1>👤 My Profile</h1>
+    <p>Manage your account and view order history</p>
+  </div>
+
+
+  <!-- NOT LOGGED IN MESSAGE (shows if user is not logged in) -->
+  <div id="notLoggedIn" class="not-logged-in-box" style="display:none;">
+    <div class="not-logged-icon">🔒</div>
+    <h2>Please Login First</h2>
+    <p>You need to be logged in to view your profile</p>
+    <a href="login.html" class="btn-primary">Login Now</a>
+  </div>
+
+
+  <!-- PROFILE WRAPPER (shows if user is logged in) -->
+  <div id="profileWrapper" class="profile-wrapper" style="display:none;">
+
+    <!-- LEFT SIDE: User Info Card -->
+    <div class="profile-left">
+
+      <!-- USER INFO CARD -->
+      <div class="profile-card">
+        <div class="profile-card-header">
+          <h2>Account Details</h2>
+          <button class="btn-edit-profile" onclick="toggleEditMode()">
+            ✏️ Edit
+          </button>
+        </div>
+
+        <!-- VIEW MODE (shows user info, can't edit) -->
+        <div id="viewMode" class="profile-info">
+
+          <div class="info-row">
+            <span class="info-label">Name:</span>
+            <span class="info-value" id="displayName">Loading...</span>
+          </div>
+
+          <div class="info-row">
+            <span class="info-label">Email:</span>
+            <span class="info-value" id="displayEmail">Loading...</span>
+          </div>
+
+          <div class="info-row">
+            <span class="info-label">Phone:</span>
+            <span class="info-value" id="displayPhone">Not provided</span>
+          </div>
+
+          <div class="info-row">
+            <span class="info-label">Member Since:</span>
+            <span class="info-value" id="displayJoined">Loading...</span>
+          </div>
+
+        </div>
+
+        <!-- EDIT MODE (shows inputs, can edit) -->
+        <div id="editMode" class="profile-edit" style="display:none;">
+
+          <div class="form-group-profile">
+            <label>Full Name</label>
+            <input type="text" id="editName" placeholder="Enter your name"/>
+          </div>
+
+          <div class="form-group-profile">
+            <label>Email (cannot be changed)</label>
+            <input type="email" id="editEmail" disabled/>
+          </div>
+
+          <div class="form-group-profile">
+            <label>Phone Number</label>
+            <input type="tel" id="editPhone" placeholder="Enter phone number"/>
+          </div>
+
+          <div class="edit-buttons">
+            <button class="btn-save-profile" onclick="saveProfile()">
+              💾 Save Changes
+            </button>
+            <button class="btn-cancel-edit" onclick="cancelEdit()">
+              ✕ Cancel
+            </button>
+          </div>
+
+          <div id="editMessage" class="edit-message"></div>
+
+        </div>
+
+        <!-- LOGOUT BUTTON -->
+        <button class="btn-logout" onclick="logout()">
+          🚪 Logout
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- RIGHT SIDE: Order History -->
+    <div class="profile-right">
+
+      <div class="orders-section">
+        <h2>📦 Your Order History</h2>
+
+        <!-- Loading -->
+        <div id="ordersLoading" class="orders-loading">
+          ⏳ Loading your orders...
+        </div>
+
+        <!-- No orders -->
+        <div id="noOrdersMsg" class="no-orders-msg" style="display:none;">
+          <p>You haven't placed any orders yet</p>
+          <a href="index.html" class="btn-secondary">Start Shopping</a>
+        </div>
+
+        <!-- Orders list -->
+        <div id="ordersList">
+          <!-- JS fills this -->
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div id="toast" class="toast"></div>
+
+  <script src="js/cart.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/profile.js"></script>
+
+</body>
+</html>

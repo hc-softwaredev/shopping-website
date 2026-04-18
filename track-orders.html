@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Track Orders — ShopNow</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/track-orders.css"/>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-logo">Shop<span>Now</span></div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#categories">Categories</a></li>
+      <li><a href="index.html#products">Products</a></li>
+      <li><a href="track-orders.html">Track Orders</a></li>
+      <li><a href="cart.html">Cart</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="login.html" class="btn-login">Login</a>
+      <a href="cart.html" class="btn-cart">
+        🛒 Cart <span id="cartCount">0</span>
+      </a>
+    </div>
+  </nav>
+
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <h1>📦 Track Your Orders</h1>
+    <p>View all your order history and status</p>
+  </div>
+
+
+  <!-- ORDERS CONTAINER -->
+  <div class="orders-wrapper">
+
+    <!-- Loading message (shows while fetching) -->
+    <div id="loadingOrders" class="loading-box">
+      ⏳ Loading your orders...
+    </div>
+
+    <!-- No orders message (shows if no orders found) -->
+    <div id="noOrders" class="no-orders-box" style="display:none;">
+      <div class="no-orders-icon">📦</div>
+      <h2>No Orders Yet</h2>
+      <p>You haven't placed any orders yet. Start shopping!</p>
+      <a href="index.html" class="btn-primary">Shop Now</a>
+    </div>
+
+    <!-- Orders list (filled by JavaScript) -->
+    <div id="ordersList" style="display:none;">
+      <!-- JS adds order cards here -->
+    </div>
+
+  </div>
+
+
+  <div id="toast" class="toast"></div>
+
+  <script src="js/cart.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/track-orders.js"></script>
+
+</body>
+</html>

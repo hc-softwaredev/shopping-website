@@ -1,0 +1,368 @@
+/* =========================================
+   profile.css — USER PROFILE PAGE STYLES
+========================================= */
+
+
+/* ── PAGE HEADER ── */
+.page-header {
+  padding: 40px 48px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+}
+.page-header h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+.page-header p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+
+/* ── NOT LOGGED IN BOX ── */
+.not-logged-in-box {
+  max-width: 500px;
+  margin: 80px auto;
+  text-align: center;
+  padding: 60px 40px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+.not-logged-icon {
+  font-size: 5rem;
+  margin-bottom: 20px;
+}
+.not-logged-in-box h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 10px;
+}
+.not-logged-in-box p {
+  color: var(--text-muted);
+  margin-bottom: 28px;
+}
+
+
+/* ── PROFILE WRAPPER (2 columns) ── */
+.profile-wrapper {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 48px;
+}
+
+
+/* ── LEFT SIDE: Profile Card ── */
+.profile-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+}
+
+.profile-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.profile-card-header h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.btn-edit-profile {
+  padding: 8px 16px;
+  background: rgba(40,116,240,0.1);
+  color: var(--primary);
+  border: 1px solid rgba(40,116,240,0.3);
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  transition: background var(--transition);
+}
+.btn-edit-profile:hover {
+  background: rgba(40,116,240,0.2);
+}
+
+
+/* ── VIEW MODE (read-only info) ── */
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.info-label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.info-value {
+  font-size: 0.88rem;
+  color: var(--white);
+  font-weight: 500;
+  text-align: right;
+}
+
+
+/* ── EDIT MODE (editable inputs) ── */
+.profile-edit {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group-profile {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group-profile label {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.form-group-profile input {
+  padding: 10px 14px;
+  background: var(--surface);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  color: var(--white);
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color var(--transition);
+}
+.form-group-profile input:focus {
+  border-color: var(--primary);
+}
+.form-group-profile input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
+/* ── EDIT BUTTONS ── */
+.edit-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.btn-save-profile {
+  flex: 1;
+  padding: 11px 20px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+.btn-save-profile:hover {
+  background: var(--primary-dark);
+}
+
+.btn-cancel-edit {
+  padding: 11px 20px;
+  background: transparent;
+  color: var(--text-muted);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: border-color var(--transition), color var(--transition);
+}
+.btn-cancel-edit:hover {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.edit-message {
+  font-size: 0.84rem;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  text-align: center;
+  min-height: 20px;
+}
+.edit-message.success {
+  background: rgba(34,197,94,0.1);
+  color: var(--green);
+  border: 1px solid rgba(34,197,94,0.2);
+}
+.edit-message.error {
+  background: rgba(239,68,68,0.1);
+  color: var(--danger);
+  border: 1px solid rgba(239,68,68,0.2);
+}
+
+
+/* ── LOGOUT BUTTON ── */
+.btn-logout {
+  width: 100%;
+  padding: 12px;
+  background: transparent;
+  color: var(--text-muted);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: border-color var(--transition), color var(--transition);
+}
+.btn-logout:hover {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+
+/* ── RIGHT SIDE: Orders Section ── */
+.orders-section {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+}
+
+.orders-section h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.orders-loading {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-muted);
+}
+
+.no-orders-msg {
+  text-align: center;
+  padding: 40px 20px;
+}
+.no-orders-msg p {
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+
+/* ── ORDER CARD (mini version for profile page) ── */
+.order-card-mini {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 12px;
+  transition: border-color var(--transition);
+}
+.order-card-mini:hover {
+  border-color: var(--border-light);
+}
+
+.order-mini-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.order-mini-id {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.order-mini-date {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.order-mini-status {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.status-pending {
+  background: rgba(255,184,0,0.15);
+  color: var(--accent2);
+  border: 1px solid rgba(255,184,0,0.3);
+}
+.status-confirmed {
+  background: rgba(40,116,240,0.15);
+  color: var(--primary);
+  border: 1px solid rgba(40,116,240,0.3);
+}
+.status-shipped {
+  background: rgba(168,85,247,0.15);
+  color: #a855f7;
+  border: 1px solid rgba(168,85,247,0.3);
+}
+.status-delivered {
+  background: rgba(34,197,94,0.15);
+  color: var(--green);
+  border: 1px solid rgba(34,197,94,0.3);
+}
+
+.order-mini-items {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.order-mini-total {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .profile-wrapper {
+    grid-template-columns: 1fr;
+    padding: 24px 20px;
+  }
+  .page-header {
+    padding: 28px 20px;
+  }
+}
